@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>addins</title>
+
+
+  <!-- build:css styles/vendor.css -->
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-aria/angular-aria.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.js"></script>
+  <script src="/bower_components/angular-material/angular-material.js"></script>
+  <script src="/scripts/modulosAngular.js"></script>
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+
+</head>
+
+<body>
+
+  <div id="addins" class="hidden">
+
+    <header class="geotabPageHeader">
+      <h1 class="geotabPageName"> Añadir
+        <span class="subdued">(Beta)</span>
+      </h1>
+      <div class="pageNameSecondary">
+        <h3 class="geotabSecondaryTitle">by:
+          <span id="addins-user"></span>
+        </h3>
+      </div>
+    </header>
+
+  </div>
+  <div id="usuarios">
+    <div ng-cloak class="tabsdemoDynamicHeight">
+      <md-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+          <md-tab label="Base de Datos">
+            <md-content class="md-padding">
+              <h3 class="md-display-7">INFORMACIÓN DE LA COMPAÑIA</h3>
+              <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+              </div>
+              <h3 class="md-display-7">INFORMACIÓN DE LA CUENTA</h3>
+            </md-content>
+          </md-tab>
+          <!--inicio tab Usuarios-->
+          <md-tab label="usuarios">
+            <md-content class="md-padding">
+              <h3 class="md-display-6">INFORMACIÓN DEL USUARIO</h3>
+              <md-content layout-padding>
+                <form name="projectForm">
+                  <div layout="row">
+                    <md-input-container flex="40">
+                      <label for="userName">Email Usuario</label>
+                      <input required name="userName" id="userName" ng-model="project.userName">
+                      <div ng-messages="projectForm.userName.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="40">
+                      <label for="userFirstName">Nombre Cliente</label>
+                      <input required name="userFirstName" id="userFirstName" ng-model="project.userFirstName">
+                      <div ng-messages="projectForm.userFirstName.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="40">
+                      <label for="userLastName">Apellido</label>
+                      <input required name="userLastName" id="userLastName" ng-model="project.userLastName">
+                      <div ng-messages="projectForm.userLastName.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="40">
+                      <label>Tipo de Autenticacion</label>
+                      <md-select name="type" ng-model="project.type" required>
+                        <md-option value="apps">Autenticacion Basica</md-option>
+                        <md-option value="web">myAdmin (Global user)</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="40">
+                      <label for="userPassword">Contraseña</label>
+                      <input type="password" required name="userPassword" id="userPassword" ng-model="project.userPassword">
+                      <div ng-messages="projectForm.userPassword.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="40">
+                      <label>Confirmar Contraseña</label>
+                      <input type="password" required name="clientName" ng-model="project.clientName">
+                      <div ng-messages="projectForm.clientName.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="40" ng-controller="accesoDatosController">
+                      <label>Nivel de seguridad</label>
+                      <md-select name="type" ng-model="project.type" required>
+                        <md-option ng-value="seguridad" ng-repeat="seguridad in lstnivelSeguridad">
+                          {{seguridad.id}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="40" ng-controller="accesoDatosController">
+                      <label>Acceso a los datos</label>
+                      <md-select name="type" ng-model="project.type" required>
+                        <md-option ng-value="datos" ng-repeat="datos in lstGroups">
+                          {{datos.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="50">
+                      <label>Comentarios</label>
+                      <input md-maxlength="50" name="description" ng-model="project.description">
+                      <div ng-messages="projectForm.description.$error">
+                        <div ng-message="md-maxlength">The description must be less than 50 characters long.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <section layout="row" layout-sm="column" layout-wrap>
+                    <md-button type="submit" id="addUser" class="md-raised">Guardar</md-button>
+                  </section>
+                </form>
+              </md-content>
+            </md-content>
+          </md-tab>
+          <!--fin tab Usuarios-->
+          <!--INICIO TAB DISPOSITIVOS-->
+          <md-tab label="dispositivos">
+            <md-content class="md-padding">
+              <h3 class="md-display-5">INFORMACIÓN DEL DISPOSITIVO</h3>
+              <md-content layout-padding>
+                <form name="projectForm">
+                  <div layout="row">
+                    <md-input-container flex="50">
+                      <label>Número de Serie</label>
+                      <input required name="clientName" ng-model="project.clientName">
+                      <div ng-messages="projectForm.clientName.$error">
+                        <div ng-message="required">##-###-###-####- Por favor ingrese un numero valido.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="50">
+                      <label>Descripción</label>
+                      <input required name="clientName" ng-model="project.clientName" title="Puede cambiar el nombre del vehículo cambiando el campo Descripción. Este campo se utilizará en las búsquedas y aparecerá en todos los reportes.">
+                      <div ng-messages="projectForm.clientName.$error">
+                        <div ng-message="required">Esto es requerido.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="50">
+                      <label>Número de Identificación del vehículo</label>
+                      <input required name="clientName" ng-model="project.clientName" title="El numero de identificacion del vehículo (VIN)">
+                      <div ng-messages="projectForm.clientName.$error">
+                        <div ng-message="required">Esto es requerido.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="20">
+                      <label>Placas del vehículo</label>
+                      <input name="clientName" ng-model="project.clientName" title="Tiene que editar el número de placas manualmente">
+                      <div ng-messages="projectForm.clientName.$error">
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout="row">
+                    <md-input-container flex="40">
+                      <label>Grupo</label>
+                      <input name="clientName" ng-model="project.type" title="Puede cambiar el nombre del vehículo cambiando el campo Descripción. Este campo se utilizará en las búsquedas y aparecerá en todos los reportes.">
+                      <div ng-messages="projectForm.clientName.$error">
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="40">
+                      <label>Seleccionar Grupos...</label>
+                      <md-select name="type" ng-model="project.type" required>
+                        <md-option value="apps">Application</md-option>
+                        <md-option value="web">Website</md-option>
+                      </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                      <md-button md-no-ink class="md-warn">Borrar selección</md-button>
+                    </md-input-container>
+                  </div>
+                  <section layout="row" layout-sm="column" layout-wrap>
+                    <md-button type="submit" class="md-raised">Guardar</md-button>
+                  </section>
+                </form>
+              </md-content>
+            </md-content>
+          </md-tab>
+          <!--FIN TAB DISPOSITIVOS-->
+        </md-tabs>
+      </md-content>
+    </div>
+  </div>
+</body>
+
+</html>

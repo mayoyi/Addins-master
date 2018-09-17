@@ -1,0 +1,21 @@
+{
+  "name": "addins",
+  "supportEmail": "mayra.delgado@metricamovil.com",
+  "version": "0.0.1",
+  "items": [{
+    
+    "url": "addins.html",
+    "path": "",
+    "menuName": {
+      "en": "addins"
+    },
+    
+    "icon": "images/icon.svg"
+  }],
+  "dev": {
+    "root": "addins",
+    "dist": {
+      "host": "https://www.example.com/myaddin/"
+    }
+  }
+}
